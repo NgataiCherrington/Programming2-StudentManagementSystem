@@ -12,6 +12,14 @@ namespace StudentManagementSystem
         private string code, name, description;
         private int credits;
         private double fees;
+        public Course(Department department, string code, string name, string description, int credits)
+        {
+            this.department = department;
+            this.code = code;
+            this.name = name;
+            this.description = description;
+            this.credits = credits;
+        }
 
         public Department Department { get => department; set => department = value; }
         public string Code { get => code; set => code = value; }
@@ -20,13 +28,11 @@ namespace StudentManagementSystem
         public int Credits { get => credits; set => credits = value; }
         public double Fees { get => fees; set => fees = value; }
 
-        public Course(Department department, string code, string name, string description, int credits)
-        {
-            Department = department;
-            Code = code;
-            Name = name;
-            Description = description;
-            Credits = credits;
-        }
+        public string DisplayCode() => $"Code: {code}";
+        public string DisplayName() => $"Name {name}";
+        public string DisplayDescription() => $"Description: {description}";
+        public string DisplayCredits() => $"Credits: {credits}";
+        public string DisplayFees() => $"Fees: {fees}";
+
     }
 }
