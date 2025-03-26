@@ -10,16 +10,21 @@ namespace StudentManagementSystem
     {
         private Course course;
         private List<int> assessmentMarks = new List<int>();
-   
-        public static void CourseAssessmentMarks(Course course, List<int> assessmentMarks)
-        {
-
-        }
         
+
+
+        public CourseAssessmentMark(Course course, List<int> assessmentMarks)
+        {
+            this.course = course;
+            this.assessmentMarks = assessmentMarks;
+        }
+
+        public Course Course { get => course; set => course = value; }
+        public List<int> AssessmentMarks { get => assessmentMarks; set => assessmentMarks = value; }
+
         public List<int> GetAllMarks()
         {
-            List<int> marks = new List<int>();
-            return marks;
+            return assessmentMarks;
         }
         
         public List<string> GetAllGrades()
@@ -31,6 +36,17 @@ namespace StudentManagementSystem
         public List<int> GetHighestMarks()
         {
             List<int> highestMarks = new List<int>();
+            int maxMark = assessmentMarks.Max();
+            //IEnumerable<int> maxMarkQuery = from mark in assessmentMarks
+            //                                where mark == assessmentMarks.Max()
+            //                                select mark;
+            foreach (int mark in assessmentMarks)
+            {
+                if (mark == maxMark)
+                {
+                    highestMarks.Add(mark);
+                }
+            }
             return highestMarks;
         }
         
@@ -42,6 +58,8 @@ namespace StudentManagementSystem
         public List<int> GetFailMarks()
         {
             List<int> failMarks = new List<int>(); 
+
+
             return failMarks;
         }
         public double GetAverageMarks()
@@ -49,10 +67,10 @@ namespace StudentManagementSystem
             double averageMarks = 0;
             return averageMarks;
         }
-        public string GetAverageGrade()
-        {
-            string averageGrade;
-            return averageGrade;
-        }
+        //public string GetAverageGrade()
+        //{
+        //    string averageGrade;
+        //    //return averageGrade;
+        //}
     }
 }

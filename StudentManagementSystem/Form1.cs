@@ -12,9 +12,14 @@ namespace StudentManagementSystem
 {
     public partial class Form1 : Form
     {
+        List<int> highestMarks = new List<int>();
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();  
+            
+            CourseAssessmentMark ngatai = new CourseAssessmentMark(null, new List<int> { 10, 49, 50, 75, 100, 100 });
+            MessageBox.Show(string.Join(",", ngatai.GetHighestMarks()));
+            
         }
     }
 }
