@@ -28,11 +28,12 @@ namespace StudentManagementSystem
         public int Credits { get => credits; set => credits = value; }
         public double Fees { get => fees; set => fees = value; }
 
-        public string DisplayCode() => $"Code: {code}";
-        public string DisplayName() => $"Name {name}";
-        public string DisplayDescription() => $"Description: {description}";
-        public string DisplayCredits() => $"Credits: {credits}";
-        public string DisplayFees() => $"Fees: {fees}";
+        public string DisplayCourseInfo() => $"Department: {department.Name}";
+        public string DisplayCourseCode() => $"Code: {code}";
+        public string DisplayCourseName() => $"Name {name}";
+        public string DisplayCourseDescription() => $"Description: {description}";
+        public string DisplayCourseCredits() => $"Credits: {credits}";
+        public string DisplayCourseFees() => $"Fees: {fees}";
 
     }
 }
