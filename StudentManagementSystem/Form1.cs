@@ -19,7 +19,17 @@ namespace StudentManagementSystem
             
             CourseAssessmentMark ngatai = new CourseAssessmentMark(null, new List<int> { 10, 49, 50, 75, 100, 100 });
             MessageBox.Show(string.Join(",", ngatai.GetHighestMarks()));
-            
+
+            CourseAssessmentMark aPlus = new CourseAssessmentMark(null, new List<int> { 95 });
+            MessageBox.Show(string.Join(",", aPlus.GradeCalculator()));
+
+            CourseAssessmentMark lowMarkErrorHandle = new CourseAssessmentMark(null, new List<int> { 67, 95, 52 });
+            MessageBox.Show(string.Join(",", lowMarkErrorHandle.GetLowestMarks()));
+
+            CourseAssessmentMark getFailMarkErrorHandle = new CourseAssessmentMark(null, new List<int> { 87, 68, 23 });
+            MessageBox.Show(string.Join(",", getFailMarkErrorHandle.GetFailMarks()));
+
+
         }
     }
 }

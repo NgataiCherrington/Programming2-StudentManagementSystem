@@ -22,6 +22,60 @@ namespace StudentManagementSystem
         public Course Course { get => course; set => course = value; }
         public List<int> AssessmentMarks { get => assessmentMarks; set => assessmentMarks = value; }
 
+        public List<string> GradeCalculator()
+        {
+            List<string> gradedMarks = new List<string>();
+
+            foreach (var score in assessmentMarks)
+            {
+                if (score > 89)
+                {
+                    gradedMarks.Add("A+");
+                }
+                else if (score >= 89)
+                {
+                    gradedMarks.Add("A");
+                }
+                else if (score >= 84)
+                {
+                    gradedMarks.Add("A-");
+                }
+                else if (score >= 79)
+                {
+                    gradedMarks.Add("B+");
+                }
+                else if (score >= 74)
+                {
+                    gradedMarks.Add("B");
+                }
+                else if (score >= 69)
+                {
+                    gradedMarks.Add("B-");
+                }
+                else if(score >= 64)
+                {
+                    gradedMarks.Add("C+");
+                }
+                else if (score >= 59)
+                {
+                    gradedMarks.Add("C");
+                }
+                else if (score >= 54)
+                {
+                    gradedMarks.Add("C-");
+                }
+                else if (score >= 49)
+                {
+                    gradedMarks.Add("D");
+                }
+                else if (score >= 39)
+                {
+                    gradedMarks.Add("E");
+                }
+            }    
+            return gradedMarks;
+        }
+
         public List<int> GetAllMarks()
         {
             return assessmentMarks;
@@ -30,6 +84,8 @@ namespace StudentManagementSystem
         public List<string> GetAllGrades()
         {
             List<string> grades = new List<string>();
+
+           
             return grades;
         }
         
@@ -37,9 +93,7 @@ namespace StudentManagementSystem
         {
             List<int> highestMarks = new List<int>();
             int maxMark = assessmentMarks.Max();
-            //IEnumerable<int> maxMarkQuery = from mark in assessmentMarks
-            //                                where mark == assessmentMarks.Max()
-            //                                select mark;
+            
             foreach (int mark in assessmentMarks)
             {
                 if (mark == maxMark)
@@ -47,19 +101,36 @@ namespace StudentManagementSystem
                     highestMarks.Add(mark);
                 }
             }
+
             return highestMarks;
         }
         
         public List<int> GetLowestMarks()
         {
             List<int> lowestMarks = new List<int>();
+            
+            foreach (var mark in assessmentMarks)
+            {
+                if (mark >= 50 && mark <= 54)
+                {
+                    lowestMarks.Add(mark);
+                }
+            }
+
             return lowestMarks;
         }
         public List<int> GetFailMarks()
         {
+            List<string> gradedMarks = new List<string>();
             List<int> failMarks = new List<int>(); 
 
-
+            foreach (var mark in assessmentMarks)
+            {
+                if (mark <= 49)
+                {
+                    failMarks.Add(mark);
+                }
+            }
             return failMarks;
         }
         public double GetAverageMarks()
