@@ -10,7 +10,7 @@ namespace StudentManagementSystem
     {
         private Course course;
         private List<int> assessmentMarks = new List<int>();
-        
+
 
 
         public CourseAssessmentMark(Course course, List<int> assessmentMarks)
@@ -32,47 +32,51 @@ namespace StudentManagementSystem
                 {
                     gradedMarks.Add("A+");
                 }
-                else if (score >= 89)
+                else if (score <= 89)
                 {
                     gradedMarks.Add("A");
                 }
-                else if (score >= 84)
+                else if (score <= 84)
                 {
                     gradedMarks.Add("A-");
                 }
-                else if (score >= 79)
+                else if (score <= 79)
                 {
                     gradedMarks.Add("B+");
                 }
-                else if (score >= 74)
+                else if (score <= 74)
                 {
                     gradedMarks.Add("B");
                 }
-                else if (score >= 69)
+                else if (score <= 69)
                 {
                     gradedMarks.Add("B-");
                 }
-                else if(score >= 64)
+                else if (score <= 64)
                 {
                     gradedMarks.Add("C+");
                 }
-                else if (score >= 59)
+                else if (score <= 59)
                 {
                     gradedMarks.Add("C");
                 }
-                else if (score >= 54)
+                else if (score <= 54)
                 {
                     gradedMarks.Add("C-");
                 }
-                else if (score >= 49)
+                else if (score <= 49)
                 {
                     gradedMarks.Add("D");
                 }
-                else if (score >= 39)
+                else if (score <= 39)
                 {
                     gradedMarks.Add("E");
                 }
-            }    
+                else
+                {
+                    gradedMarks.Add("Error Occurred!");
+                }
+            }
             return gradedMarks;
         }
 
@@ -80,20 +84,18 @@ namespace StudentManagementSystem
         {
             return assessmentMarks;
         }
-        
+
         public List<string> GetAllGrades()
         {
             List<string> grades = new List<string>();
-
-           
             return grades;
         }
-        
+
         public List<int> GetHighestMarks()
         {
             List<int> highestMarks = new List<int>();
             int maxMark = assessmentMarks.Max();
-            
+
             foreach (int mark in assessmentMarks)
             {
                 if (mark == maxMark)
@@ -104,11 +106,11 @@ namespace StudentManagementSystem
 
             return highestMarks;
         }
-        
+
         public List<int> GetLowestMarks()
         {
             List<int> lowestMarks = new List<int>();
-            
+
             foreach (var mark in assessmentMarks)
             {
                 if (mark >= 50 && mark <= 54)
@@ -122,7 +124,7 @@ namespace StudentManagementSystem
         public List<int> GetFailMarks()
         {
             List<string> gradedMarks = new List<string>();
-            List<int> failMarks = new List<int>(); 
+            List<int> failMarks = new List<int>();
 
             foreach (var mark in assessmentMarks)
             {
@@ -136,12 +138,66 @@ namespace StudentManagementSystem
         public double GetAverageMarks()
         {
             double averageMarks = 0;
+            for (int i = 0; i < assessmentMarks.Count; i++)
+            {
+                averageMarks = assessmentMarks.Sum() / assessmentMarks.Count;
+            }
+
             return averageMarks;
         }
-        //public string GetAverageGrade()
-        //{
-        //    string averageGrade;
-        //    //return averageGrade;
-        //}
+        public string GetAverageGrade()
+        {
+          
+            double averageMarks = assessmentMarks.Average();
+
+            string averageGrade;
+            if (averageMarks >= 90)
+            {
+                averageGrade = "A+";
+            }
+            else if (averageMarks >= 85)
+            {
+                averageGrade = "A";
+            }
+            else if (averageMarks >= 80)
+            {
+                averageGrade = "A-";
+            }
+            else if (averageMarks >= 75)
+            {
+                averageGrade = "B+";
+            }
+            else if (averageMarks >= 70)
+            {
+                averageGrade = "B";
+            }
+            else if (averageMarks >= 65)
+            {
+                averageGrade = "B-";
+            }
+            else if (averageMarks >= 60)
+            {
+                averageGrade = "C+";
+            }
+            else if (averageMarks >= 55)
+            {
+                averageGrade = "C";
+            }
+            else if (averageMarks >= 50)
+            {
+                averageGrade = "C-";
+            }
+            else if (averageMarks >= 40)
+            {
+                averageGrade = "D";
+            }
+            else
+            {
+                averageGrade = "E";
+            }
+            
+
+            return averageGrade;
+        }
     }
 }
