@@ -19,7 +19,6 @@ namespace StudentManagementSystem
         public Institution Institution { get => institution; set => institution = value; }
         public string Name { get => name; set => name = value; }
 
-        public string DisplayInstitutionInfo() => $"Institution: {institution.Name}";
-        public string DisplayDepartmentName() => $"Department Name: {name}";
+        public string DisplayInfo() => $"Institution:\t{institution.Name}\nDepartment:\t{name}";
     }
 }

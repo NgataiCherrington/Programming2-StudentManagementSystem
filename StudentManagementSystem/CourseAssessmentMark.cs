@@ -22,53 +22,59 @@ namespace StudentManagementSystem
         public Course Course { get => course; set => course = value; }
         public List<int> AssessmentMarks { get => assessmentMarks; set => assessmentMarks = value; }
 
-        public List<string> GradeCalculator()
+        
+        public List<int> GetAllMarks()
+        {
+            return assessmentMarks;
+        }
+
+        public List<string> GetAllGrades()
         {
             List<string> gradedMarks = new List<string>();
 
             foreach (var score in assessmentMarks)
             {
-                if (score > 89)
+                if (score >= 90)
                 {
                     gradedMarks.Add("A+");
                 }
-                else if (score <= 89)
+                else if (score >= 85)
                 {
                     gradedMarks.Add("A");
                 }
-                else if (score <= 84)
+                else if (score >= 80)
                 {
                     gradedMarks.Add("A-");
                 }
-                else if (score <= 79)
+                else if (score >= 75)
                 {
                     gradedMarks.Add("B+");
                 }
-                else if (score <= 74)
+                else if (score >= 70)
                 {
                     gradedMarks.Add("B");
                 }
-                else if (score <= 69)
+                else if (score >= 65)
                 {
                     gradedMarks.Add("B-");
                 }
-                else if (score <= 64)
+                else if (score >= 60)
                 {
                     gradedMarks.Add("C+");
                 }
-                else if (score <= 59)
+                else if (score >= 55)
                 {
                     gradedMarks.Add("C");
                 }
-                else if (score <= 54)
+                else if (score >= 50)
                 {
                     gradedMarks.Add("C-");
                 }
-                else if (score <= 49)
+                else if (score >= 40)
                 {
                     gradedMarks.Add("D");
                 }
-                else if (score <= 39)
+                else if (score >= 0)
                 {
                     gradedMarks.Add("E");
                 }
@@ -78,17 +84,6 @@ namespace StudentManagementSystem
                 }
             }
             return gradedMarks;
-        }
-
-        public List<int> GetAllMarks()
-        {
-            return assessmentMarks;
-        }
-
-        public List<string> GetAllGrades()
-        {
-            List<string> grades = new List<string>();
-            return grades;
         }
 
         public List<int> GetHighestMarks()
@@ -123,7 +118,6 @@ namespace StudentManagementSystem
         }
         public List<int> GetFailMarks()
         {
-            List<string> gradedMarks = new List<string>();
             List<int> failMarks = new List<int>();
 
             foreach (var mark in assessmentMarks)
@@ -137,18 +131,18 @@ namespace StudentManagementSystem
         }
         public double GetAverageMarks()
         {
-            double averageMarks = 0;
-            for (int i = 0; i < assessmentMarks.Count; i++)
-            {
-                averageMarks = assessmentMarks.Sum() / assessmentMarks.Count;
-            }
-
+            double averageMarks = assessmentMarks.Average();
+         
             return averageMarks;
         }
         public string GetAverageGrade()
         {
           
             double averageMarks = assessmentMarks.Average();
+            if (assessmentMarks.Count == 0)
+            {
+                return "No grades available";
+            }
 
             string averageGrade;
             if (averageMarks >= 90)

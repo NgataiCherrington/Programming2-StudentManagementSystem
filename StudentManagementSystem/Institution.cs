@@ -9,7 +9,7 @@ namespace StudentManagementSystem
     public class Institution
     {
         private string name, region, country;
-        public Institution (string name, string region, string country)
+        public Institution(string name, string region, string country)
         {
             this.Name = name;
             this.Region = region;
@@ -20,8 +20,6 @@ namespace StudentManagementSystem
         public string Region { get => region; set => region = value; }
         public string Country { get => country; set => country = value; }
 
-        public string DisplayInstitutionName() => $"Institution name: {name}";
-        public string DisplayInstitutionRegion() => $"Region: {region}";
-        public string DisplayInstitutionCountry() => $"Country: {country}";
+        public string DisplayInfo() => $"Institution:\t{name}\nRegion:\t\t{region}\nCountry:\t\t{country}";
     }
 }

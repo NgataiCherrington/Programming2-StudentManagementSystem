@@ -28,12 +28,7 @@ namespace StudentManagementSystem
         public int Credits { get => credits; set => credits = value; }
         public double Fees { get => fees; set => fees = value; }
 
-        public string DisplayCourseInfo() => $"Department: {department.Name}";
-        public string DisplayCourseCode() => $"Course code: {code}";
-        public string DisplayCourseName() => $"Course name {name}";
-        public string DisplayCourseDescription() => $"Course description: {description}";
-        public string DisplayCourseCredits() => $" Course credits: {credits}";
-        public string DisplayCourseFees() => $"Course fees: {fees}";
+        public string DisplayInfo() => $"Department:\t\t{department.Name}\nCourse code:\t\t{code}\nCourse name:\t\t{name}\nCourse description:\t{description}\nCourse credits:\t\t{credits}\nCourse fees:\t\t{fees}";
 
     }
 }
