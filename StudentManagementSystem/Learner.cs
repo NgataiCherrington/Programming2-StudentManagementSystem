@@ -17,5 +17,7 @@ namespace StudentManagementSystem
             this.LastName = lastName;
             this.courseAssessmentMarks = courseAssessmentMarks;
         }
+
+        public CourseAssessmentMark CourseAssessmentMarks { get => courseAssessmentMarks; set => courseAssessmentMarks = value; }
     }
 }

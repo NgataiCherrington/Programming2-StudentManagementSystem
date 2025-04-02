@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,70 @@ namespace StudentManagementSystem
            courses.Add(new Course(departments[2], "HIS 305", "Ancient Civilizations", "Early human societies", 3));
 
             return courses;
+        }
+
+        
+       
+
+        public static void ReadFromFile(string filePath, List<Learner> learners, bool isAttendance)
+        {
+            filePath = "learners.txt";
+            List<string> lines = File.ReadAllLines(filePath).ToList();
+
+            foreach (string line in lines)
+            {
+                string[] learnerDetails = line.Split(',');
+
+                int id = int.Parse(learnerDetails[0]);
+                string firstName = learnerDetails[1];
+                string lastName = learnerDetails[2];
+                int courseNum = int.Parse(learnerDetails[3]);
+                Learner learner = null;
+
+                if (isAttendance)
+                {
+                    //int percentage = int.Parse(learnerDetails[4]);
+                    //learner = new Learner(id, firstName, lastName, lastName, percentage);
+                }
+
+                else
+                {
+                    List<int> marks = new List<int>();
+                    {
+                        Convert.ToInt32(learnerDetails[4]);
+                        Convert.ToInt32(learnerDetails[5]);
+                        Convert.ToInt32(learnerDetails[6]);
+                        Convert.ToInt32(learnerDetails[7]);
+                        Convert.ToInt32(learnerDetails[8]);
+                    };
+
+                    CourseAssessmentMark assessmentMark = new CourseAssessmentMark(courses[courseNum], marks);
+                    learner = new Learner(id, firstName, lastName, assessmentMark);
+                }
+
+                learners.Add(learner);
+            }
+        }
+
+        public static void ReadFromFile(string filePath, List<Lecturer> lecturers)
+        {
+            filePath = "lecturers.txt";
+            List<string> lines = File.ReadAllLines(filePath).ToList();
+
+            foreach (string line in lines)
+            {
+                string[] lecturerDetails = line.Split(',');
+
+                int id = int.Parse(lecturerDetails[0]);
+                string firstName = lecturerDetails[1];
+                string lastName = lecturerDetails[2];
+                Lecturer.EPosition position = (Lecturer.EPosition)Enum.Parse(typeof(Lecturer.EPosition), lecturerDetails[3].Trim(), true);
+                Lecturer.ESalary salary = (Lecturer.ESalary)Enum.Parse(typeof(Lecturer.ESalary), lecturerDetails[4].Trim(), true);
+                int courseID = int.Parse(lecturerDetails[5]);
+
+                Lecturer lecturer = new Lecturer(id, firstName, lastName, position,salary, courses[courseID]);
+                
+            }
         }
     }
 }
