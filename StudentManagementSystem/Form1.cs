@@ -7,75 +7,152 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static StudentManagementSystem.Lecturer;
 
 namespace StudentManagementSystem
 {
-    public enum EPosition
-    {
-        LECTURER = 0,
-        SENIOR_LECTURER = 1,
-        PRINCIPAL_LECTURER = 2,
-        ASSOCIATE_PROFESSOR = 3,
-        PROFESSOR = 4
-    }
-
-    public enum ESalary
-    {
-        LECTURER_SALARY = 85000,
-        SENIOR_LECTURER_SALARY = 100000,
-        PRINCIPAL_LECTURER_SALARY = 115000,
-        ASSOCIATE_PROFESSOR_SALARY = 130000,
-        PROFESSOR_SALARY = 145000
-    }
+    
 
     public partial class Form1 : Form
     {
-
         List<int> highestMarks = new List<int>();
         public static List<Institution> institutions = new List<Institution>();
         public static List<Department> departments = new List<Department>();
         public static List<Course> courses = new List<Course>();
+
         public Form1()
         {
             InitializeComponent();
-
+           
             institutions = Utils.SeedInstitutions();
             departments = Utils.SeedDepartments();
             courses = Utils.SeedCourses();
 
-            CourseAssessmentMark ngatai = new CourseAssessmentMark(null, new List<int> { 10, 49, 50, 75, 100, 100 });
-            MessageBox.Show(string.Join(",", ngatai.GetHighestMarks()));
+        }
 
-            //CourseAssessmentMark aPlus = new CourseAssessmentMark(null, new List<int> { 63 });
-            MessageBox.Show(string.Join(",", ngatai.GetAllGrades()));
+        private void DisplayCourseDetail_btn(object sender, EventArgs e)
+        {
+            courses = Utils.SeedCourses();
+            //make the column headings
+            dataGridView1.Columns.Clear();
+            dataGridView1.Columns.Add("idColumn", "Code");
+            dataGridView1.Columns.Add("courseColumn", "Course");
+            dataGridView1.Columns.Add("descriptionColumn", "Description");
+            dataGridView1.Columns.Add("creditColumn", "Credits");
+            dataGridView1.Columns.Add("feeColumn", "Fees");
 
-            //CourseAssessmentMark lowMarkErrorHandle = new CourseAssessmentMark(null, new List<int> { 67, 95, 52 });
-            MessageBox.Show(string.Join(",", ngatai.GetLowestMarks()));
+            //make the column rows
+            foreach (Course course in courses)
+            {
+                dataGridView1.Rows.Add(
+                    course.Code,
+                    course.Name,
+                    course.Description,
+                    course.Credits,
+                    course.Fees
+                    );
+            }
 
-            //CourseAssessmentMark getFailMarkErrorHandle = new CourseAssessmentMark(null, new List<int> { 87, 68, 23 });
-            MessageBox.Show(string.Join(",", ngatai.GetFailMarks()));
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ReadOnly = true;
+        }
 
-            //CourseAssessmentMark averageMarkErrorHandle = new CourseAssessmentMark(null, new List<int> { 97, 64, 13, 54, 44, 76 });
-            MessageBox.Show(string.Join(",", ngatai.GetAverageMarks()));
+        private void DisplayAllMarks_btn(object sender, EventArgs e)
+        {
+            List<Learner> learners = new List<Learner>();
+            
+            courses = Utils.SeedCourses();
+            Utils.ReadFromLearnerFile("learners.txt", learners, false);
 
-            //CourseAssessmentMark averageGradeErrorHandle = new CourseAssessmentMark(null, new List<int> { 97, 64, 13, 54, 44, 76 });
-            MessageBox.Show(string.Join(",", ngatai.GetAverageGrade()));
+            DataTable learnerDataTable = new DataTable();
+            learnerDataTable.Columns.Add("ID");
+            learnerDataTable.Columns.Add("First Name");
+            learnerDataTable.Columns.Add("Last Name");
+            learnerDataTable.Columns.Add("Mark 1");
+            learnerDataTable.Columns.Add("Mark 2");
+            learnerDataTable.Columns.Add("Mark 3");
+            learnerDataTable.Columns.Add("Mark 4");
+            learnerDataTable.Columns.Add("Mark 5");
 
-            Institution institution1 = institutions[0];
-            Institution institution2 = institutions[1];
-            Department department1 = departments[0];
-            Department department2 = departments[1];
-            Course course1 = courses[0];
-            Course course2 = courses[1];
-            MessageBox.Show(institution1.DisplayInfo().ToString());
-            MessageBox.Show(institution2.DisplayInfo().ToString());
-            MessageBox.Show(department1.DisplayInfo().ToString());
-            MessageBox.Show(department2.DisplayInfo().ToString());
-            MessageBox.Show(course1.DisplayInfo().ToString());
-            MessageBox.Show(course2.DisplayInfo().ToString());
+            foreach (var learner in learners)
+            {
+                if (learner.CourseAssessmentMarks == null || learner.CourseAssessmentMarks.GetAllMarks() == null)
+                {
+                    MessageBox.Show($"No marks found for learner {learner.FirstName} {learner.LastName}");
+                    continue;
+                }
 
+                List<int> marks = new List<int>();
+                var row = learnerDataTable.NewRow();
+                row["ID"] = learner.Id;
+                row["First Name"] = learner.FirstName;
+                row["Last Name"] = learner.LastName;
+                for (int i = 0; i < 5; i++)
+                {
+                    row[$"Mark {i + 1}"] = marks.Count > i ? marks[i] : 0;
+                }
+                learnerDataTable.Rows.Add(row);
+            }
 
+            dataGridView1.DataSource = learnerDataTable;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ReadOnly = true;
+        }
 
+        private void DisplayAllGrades_btn(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DisplayHighestMarks_btn(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DisplayLowestMarks_btn(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DisplayFailMarks_btn(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DisplayAvgMarks_btn(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DisplayAvgGrades_btn(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DisplayLecturerDetails_btn(object sender, EventArgs e)
+        {
+            List<Lecturer> lecturers = new List<Lecturer>();
+            Utils.ReadFromLecturerFile("lecturers.txt", lecturers);
+            dataGridView1.DataSource = lecturers;
+        }
+
+        private void AddLearner_btn(object sender, EventArgs e)
+        {
+            
+            
+        }
+
+        private void AddLecturer_btn(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RemoveLecturer_btn(object sender, EventArgs e)
+        {
+
+        }
+        private void Exit_btn(object sender, EventArgs e)
+        {
 
         }
     }

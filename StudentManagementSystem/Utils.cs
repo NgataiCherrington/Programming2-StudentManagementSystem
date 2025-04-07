@@ -33,17 +33,14 @@ namespace StudentManagementSystem
 
         public static List<Course> SeedCourses()
         {
-           courses.Add(new Course(departments[0], "PSY 101", "Intro to Psychology", "Basic psychological principles", 3));
-           courses.Add(new Course(departments[1], "IT 202", "Data Structures", "Organizing data efficiently", 4));
-           courses.Add(new Course(departments[2], "HIS 305", "Ancient Civilizations", "Early human societies", 3));
+           courses.Add(new Course(departments[0], "PSY 101", "Intro to Psychology", "Basic psychological principles", 3, 500.00));
+           courses.Add(new Course(departments[1], "IT 202", "Data Structures", "Organizing data efficiently", 4, 500.00));
+           courses.Add(new Course(departments[2], "HIS 305", "Ancient Civilizations", "Early human societies", 3, 500.00));
 
             return courses;
-        }
+        }       
 
-        
-       
-
-        public static void ReadFromFile(string filePath, List<Learner> learners, bool isAttendance)
+        public static void ReadFromLearnerFile(string filePath, List<Learner> learners, bool isAttendance)
         {
             filePath = "learners.txt";
             List<string> lines = File.ReadAllLines(filePath).ToList();
@@ -61,7 +58,7 @@ namespace StudentManagementSystem
                 if (isAttendance)
                 {
                     //int percentage = int.Parse(learnerDetails[4]);
-                    //learner = new Learner(id, firstName, lastName, lastName, percentage);
+                    //learner = new Learner(id, firstName, lastName, percentage);
                 }
 
                 else
@@ -83,7 +80,7 @@ namespace StudentManagementSystem
             }
         }
 
-        public static void ReadFromFile(string filePath, List<Lecturer> lecturers)
+        public static void ReadFromLecturerFile(string filePath, List<Lecturer> lecturers)
         {
             filePath = "lecturers.txt";
             List<string> lines = File.ReadAllLines(filePath).ToList();
@@ -99,7 +96,7 @@ namespace StudentManagementSystem
                 Lecturer.ESalary salary = (Lecturer.ESalary)Enum.Parse(typeof(Lecturer.ESalary), lecturerDetails[4].Trim(), true);
                 int courseID = int.Parse(lecturerDetails[5]);
 
-                Lecturer lecturer = new Lecturer(id, firstName, lastName, position,salary, courses[courseID]);
+                Lecturer lecturer = new Lecturer(id, firstName, lastName, position, salary, courses[courseID]);
                 
             }
         }

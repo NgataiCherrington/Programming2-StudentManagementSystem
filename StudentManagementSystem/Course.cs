@@ -12,13 +12,14 @@ namespace StudentManagementSystem
         private string code, name, description;
         private int credits;
         private double fees;
-        public Course(Department department, string code, string name, string description, int credits)
+        public Course(Department department, string code, string name, string description, int credits, double fees)
         {
             this.department = department;
             this.code = code;
             this.name = name;
             this.description = description;
             this.credits = credits;
+            this.fees = fees;
         }
 
         public Department Department { get => department; set => department = value; }
