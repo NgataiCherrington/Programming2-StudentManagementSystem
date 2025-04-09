@@ -19,5 +19,6 @@ namespace StudentManagementSystem
         }
 
         public CourseAssessmentMark CourseAssessmentMarks { get => courseAssessmentMarks; set => courseAssessmentMarks = value; }
+       
     }
 }

@@ -9,9 +9,7 @@ namespace StudentManagementSystem
     public class CourseAssessmentMark
     {
         private Course course;
-        private List<int> assessmentMarks = new List<int>();
-
-
+        private List<int> assessmentMarks;
 
         public CourseAssessmentMark(Course course, List<int> assessmentMarks)
         {
@@ -21,7 +19,6 @@ namespace StudentManagementSystem
 
         public Course Course { get => course; set => course = value; }
         public List<int> AssessmentMarks { get => assessmentMarks; set => assessmentMarks = value; }
-
         
         public List<int> GetAllMarks()
         {

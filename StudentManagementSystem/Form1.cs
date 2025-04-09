@@ -61,11 +61,7 @@ namespace StudentManagementSystem
         }
 
         private void DisplayAllMarks_btn(object sender, EventArgs e)
-        {
- 
-
-           
-
+        {        
             DataTable learnerDataTable = new DataTable();
             learnerDataTable.Clear();
             learnerDataTable.Columns.Add("ID");
@@ -79,17 +75,16 @@ namespace StudentManagementSystem
 
             foreach (var learner in learners)
             {
-            MessageBox.Show(string.Join(", ", learner.CourseAssessmentMarks.AssessmentMarks));
+                MessageBox.Show($"Learner: {learner.FirstName} {learner.LastName}, Assessment Marks: {string.Join(",", learner.CourseAssessmentMarks.AssessmentMarks)}");
                 List<int> marks = new List<int>(learner.CourseAssessmentMarks.GetAllMarks());
-                List<int> assessmentMarks = new List<int>();
-
+               
                 var row = learnerDataTable.NewRow();
                 row["ID"] = learner.Id;
                 row["First Name"] = learner.FirstName;
                 row["Last Name"] = learner.LastName;
                 for (int i = 0; i < 5; i++)
                 {
-                    row[$"Mark {i + 1}"] = assessmentMarks.Count > i ? assessmentMarks[i] : 0;
+                    row[$"Mark {i + 1}"] = marks.Count > i ? marks[i] : 0;
                 }
                 learnerDataTable.Rows.Add(row);
             }
@@ -101,8 +96,8 @@ namespace StudentManagementSystem
 
         private void DisplayAllGrades_btn(object sender, EventArgs e)
         {
-            List<Learner> learners = new List<Learner>();
-            Utils.ReadFromLearnerFile("learners.txt", learners, false);
+            //List<Learner> learners = new List<Learner>();
+            //Utils.ReadFromLearnerFile("learners.txt", learners, false);
 
             DataTable gradeDataTable = new DataTable();
             gradeDataTable.Clear();
@@ -116,8 +111,29 @@ namespace StudentManagementSystem
             gradeDataTable.Columns.Add("Grade 4");
             gradeDataTable.Columns.Add("Grade 5");
 
-
-
+            foreach (var learner in learners)
+            {
+                List<int> marks = new List<int>(learner.CourseAssessmentMarks.GetAllMarks());
+                var row = gradeDataTable.NewRow();
+                row["Id"] = learner.Id;
+                row["First Name"] = learner.FirstName;
+                row["Last Name"] = learner.LastName; 
+                foreach (var course in courses)
+                {
+                    row["Code"] = course.DisplayCodeName();
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    row[$"Grade {i + 1}"] = marks.Count > i ? marks[i] : 0;
+                }
+                gradeDataTable.Rows.Add(row);
+            }
+            
+            
+            
+            dataGridView1.DataSource = gradeDataTable;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ReadOnly = true;
 
         }
 

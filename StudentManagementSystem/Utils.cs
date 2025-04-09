@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace StudentManagementSystem
 {
@@ -63,17 +64,19 @@ namespace StudentManagementSystem
 
                 else
                 {
-                    List<int> marks = new List<int>();
+                    List<int> marks = new List<int>()
                     {
-                        Convert.ToInt32(learnerDetails[4]);
-                        Convert.ToInt32(learnerDetails[5]);
-                        Convert.ToInt32(learnerDetails[6]);
-                        Convert.ToInt32(learnerDetails[7]);
-                        Convert.ToInt32(learnerDetails[8]);
+                        Convert.ToInt32(learnerDetails[4]),
+                        Convert.ToInt32(learnerDetails[5]),
+                        Convert.ToInt32(learnerDetails[6]),
+                        Convert.ToInt32(learnerDetails[7]),
+                        Convert.ToInt32(learnerDetails[8]),
                     };
-
+        
                     CourseAssessmentMark assessmentMark = new CourseAssessmentMark(courses[courseNum], marks);
+
                     learner = new Learner(id, firstName, lastName, assessmentMark);
+                   
                 }
 
                 learners.Add(learner);
