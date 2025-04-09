@@ -30,6 +30,7 @@ namespace StudentManagementSystem
         public double Fees { get => fees; set => fees = value; }
 
         public string DisplayInfo() => $"Department:\t\t{department.Name}\nCourse code:\t\t{code}\nCourse name:\t\t{name}\nCourse description:\t{description}\nCourse credits:\t\t{credits}\nCourse fees:\t\t{fees}";
+        public string DisplayCodeName() => $"{code}: {name}";
 
     }
 }
